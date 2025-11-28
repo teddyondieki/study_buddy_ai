@@ -3,7 +3,7 @@ pipeline {
     environment {
         DOCKER_HUB_REPO = "teddyondieki/studybuddyai"
         DOCKER_HUB_CREDENTIALS_ID = "dockerhub-token"
-        IMAGE_TAG = "latest"
+        IMAGE_TAG = "v${BUILD_NUMBER}"
     }
     stages {
         stage('Checkout Github') {
