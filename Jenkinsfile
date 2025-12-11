@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         DOCKER_HUB_REPO = "teddyondieki/studybuddyai"
-        DOCKER_HUB_CREDENTIALS_ID = "dockerhub-token"
+        DOCKER_HUB_CREDENTIALS_ID = "gitops-dockerhub"
         IMAGE_TAG = "latest"
     }
     stages {
