@@ -48,7 +48,7 @@ pipeline {
                         git config user.name "teddyondieki"
                         git config user.email "teddyondieki@gmail.com"
                         git add manifests/deployment.yaml
-                        git commit -m "Update image tag to ${IMAGE_TAG}" || echo "No changes to commit"
+                        git commit -m "[ci skip] Update image tag to ${IMAGE_TAG}" || echo "No changes to commit"
                         git push https://${GIT_USER}:${GIT_PASS}@github.com/teddyondieki/study_buddy_ai.git HEAD:main
                         '''
                     }
