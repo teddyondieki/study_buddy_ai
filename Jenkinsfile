@@ -3,19 +3,19 @@ pipeline {
     environment {
         DOCKER_HUB_REPO = "teddyondieki/studybuddyai"
         DOCKER_HUB_CREDENTIALS_ID = "gitops-dockerhub"
-        IMAGE_TAG = "latest"
+        IMAGE_TAG = "${env.BUILD_NUMBER}"
     }
     stages {
         stage('Checkout Github') {
             steps {
                 echo 'Checking out code from GitHub...'
                 checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'github-token', url: 'https://github.com/teddyondieki/study_buddy_ai.git']])            }
-        }        
+        }
         stage('Build Docker Image') {
             steps {
                 script {
-                    echo 'Building Docker image...'
-                    dockerImage = docker.build("${DOCKER_HUB_REPO}:${IMAGE_TAG}")
+                    echo 'Building Docker image without cache...'
+                    dockerImage = docker.build("${DOCKER_HUB_REPO}:${IMAGE_TAG}", "--no-cache .")
                 }
             }
         }
@@ -25,6 +25,7 @@ pipeline {
                     echo 'Pushing Docker image to DockerHub...'
                     docker.withRegistry('https://registry.hub.docker.com' , "${DOCKER_HUB_CREDENTIALS_ID}") {
                         dockerImage.push("${IMAGE_TAG}")
+                        dockerImage.push("latest")
                     }
                 }
             }
