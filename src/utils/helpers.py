@@ -48,6 +48,7 @@ class QuizManager:
         return True
 
     def attempt_quiz(self):
+        self.user_answers = []  # reset so reruns don't retain stale defaults
         for i, q in enumerate(self.questions):
             st.markdown(f"**Question {i + 1} : {q['question']}**")
 
